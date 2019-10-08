@@ -16,3 +16,9 @@ def checkout(request):
     return render(request, 'boilerplate/checkout.html', context=None)
 def thankyou(request):
     return render(request, 'boilerplate/thankyou.html', context=None)
+def login(request):
+    return render(request, 'boilerplate/login.html', context=None)
+def register(request):
+    return render(request, 'boilerplate/register.html', context=None)
+def account(request):
+    return render(request, 'boilerplate/account.html', context=None)

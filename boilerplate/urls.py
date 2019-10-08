@@ -11,6 +11,9 @@ urlpatterns = [
     path('shop-single.html', views.shop_single, name='shop_single'),
     path('cart.html', views.cart, name='cart'),
     path('checkout.html', views.checkout, name='checkout'),
-    path('thankyou.html', views.thankyou, name='thankyou'),      
+    path('thankyou.html', views.thankyou, name='thankyou'),
+    path('register.html', views.register, name='register'),
+    path('login.html', views.login, name='login'),
+    path('account.html', views.account, name='account'),       
 
 ]
