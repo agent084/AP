@@ -21,7 +21,10 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'boilerplate/about.html', context=None)
+    products = Product.objects.filter(active=True)
+    categories = Category.objects.filter(active=True)
+    context = {"products": products, "categories": categories}
+    return render(request, 'boilerplate/about.html', context)
 
 
 def store(request):
@@ -32,7 +35,10 @@ def store(request):
 
 
 def contact(request):
-    return render(request, 'boilerplate/contact.html', context=None)
+    products = Product.objects.filter(active=True)
+    categories = Category.objects.filter(active=True)
+    context = {"products": products, "categories": categories}
+    return render(request, 'boilerplate/contact.html', context)
 
 
 def search(request):
@@ -104,7 +110,10 @@ def signout(request):
 
 
 def thankyou(request):
-    return render(request, 'boilerplate/thankyou.html', context=None)
+    products = Product.objects.filter(active=True)
+    categories = Category.objects.filter(active=True)
+    context = {"products": products, "categories": categories}
+    return render(request, 'boilerplate/thankyou.html', context)
 
 
 def cart(request, slug):
@@ -133,7 +142,10 @@ def mycart(request):
 
 
 def checkout(request):
-    return render(request, "boilerplate/checkout.html", context=None)
+    products = Product.objects.filter(active=True)
+    categories = Category.objects.filter(active=True)
+    context = {"products": products, "categories": categories}
+    return render(request, "boilerplate/checkout.html", context)
 
 
 @api_view(['GET'])
@@ -146,4 +158,7 @@ def api_products(request):
 
 
 def account(request):
-    return render(request, 'boilerplate/account.html', context=None)
+    products = Product.objects.filter(active=True)
+    categories = Category.objects.filter(active=True)
+    context = {"products": products, "categories": categories}
+    return render(request, 'boilerplate/account.html', context)
