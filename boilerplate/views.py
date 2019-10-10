@@ -25,7 +25,10 @@ def about(request):
 
 
 def store(request):
-    return render(request, 'boilerplate/store.html', context=None)
+    products = Product.objects.filter(active=True)
+    categories = Category.objects.filter(active=True)
+    context = {"products": products, "categories": categories}
+    return render(request, "boilerplate/store.html", context)
 
 
 def contact(request):
@@ -48,15 +51,14 @@ def categories(request, slug):
     categories = Category.objects.filter(active=True)
     context = {"products": products, "categories": categories,
                "title": cat.name + " - Categories"}
-    return render(request, "boilerplate/list.html", context)
+    return render(request, "boilerplate/store.html", context)
 
 
 def shop_single(request, slug):
     product = Product.objects.get(active=True, slug=slug)
     categories = Category.objects.filter(active=True)
     context = {"product": product,
-               "categories": categories,
-               "form": form}
+               "categories": categories, }
     return render(request, "boilerplate/shop-single.html", context)
 
 
@@ -106,13 +108,6 @@ def thankyou(request):
 
 
 def cart(request, slug):
-    """
-        data = {"items" : ["slug1", "slug2"],
-                "price" : 12342,
-                "count" : 5
-                }
-        request.session["data"] = data
-        """
     product = Product.objects.get(slug=slug)
     inital = {"items": [], "price": 0.0, "count": 0}
     session = request.session.get("data", inital)
@@ -124,7 +119,7 @@ def cart(request, slug):
         session["count"] += 1
         request.session["data"] = session
         messages.success(request, "Added successfully")
-    return redirect("boilerplate:detail", slug)
+    return redirect("boilerplate:store", slug)
 
 
 def mycart(request):
@@ -134,12 +129,11 @@ def mycart(request):
     context = {"products": products,
                "categories": categories,
                "title": "My Cart"}
-    return render(request, "boilerplate/list.html", context)
+    return render(request, "boilerplate/cart.html", context)
 
 
 def checkout(request):
-    request.session.pop('data', None)
-    return redirect("/")
+    return render(request, "boilerplate/checkout.html", context=None)
 
 
 @api_view(['GET'])

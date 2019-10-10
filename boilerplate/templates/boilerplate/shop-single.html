@@ -1,114 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
+{% extends "boilerplate/base.html" %}
 {% load bootstrap4 %}
-  <head>
-    <title>The Store</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"
-    />
-    <link rel="stylesheet" href="static/fonts/icomoon/style.css" />
-
-    <link rel="stylesheet" href="static/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="static/css/magnific-popup.css" />
-    <link rel="stylesheet" href="static/css/jquery-ui.css" />
-    <link rel="stylesheet" href="static/css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="static/css/owl.theme.default.min.css" />
-
-    <link rel="stylesheet" href="static/css/aos.css" />
-
-    <link rel="stylesheet" href="static/css/style.css" />
-  </head>
-  <body>
-    <div class="site-wrap">
-      <header class="site-navbar" role="banner">
-        <div class="site-navbar-top">
-          <div class="container">
-            <div class="row align-items-center">
-              <div
-                class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left"
-              >
-                <form action="" class="site-block-top-search">
-                  <span class="icon icon-search2"></span>
-                  <input
-                    type="text"
-                    class="form-control border-0"
-                    placeholder="Search"
-                  />
-                </form>
-              </div>
-
-              <div
-                class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center"
-              >
-                <div class="site-logo">
-                  <a href="/index.html" class="js-logo-clone">Store</a>
-                </div>
-              </div>
-
-              <div class="col-6 col-md-4 order-3 order-md-3 text-right">
-                <div class="site-top-icons">
-                  <ul>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon icon-person"></span></a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {% if user.is_authenticated %}
-                                <a class="dropdown-item" href="{% url "boilerplate:signout" %}">Sign Out</a>
-                            {% else %}
-                                <a class="dropdown-item" href="{% url "boilerplate:signin" %}">Sign In</a>
-                                <a class="dropdown-item" href="{% url "boilerplate:signup" %}">Signup</a>
-                            {% endif %}
-                        </div>
-                    </li>
-                    <li>
-                      <a href="#"><span class="icon icon-heart-o"></span></a>
-                    </li>
-                    <li>
-                      <a href="/cart.html" class="site-cart">
-                        <span class="icon icon-shopping_cart"></span>
-                        <span class="count">2</span>
-                      </a>
-                    </li>
-                    <li class="d-inline-block d-md-none ml-md-0">
-                      <a href="#" class="site-menu-toggle js-menu-toggle"
-                        ><span class="icon-menu"></span
-                      ></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <nav
-          class="site-navigation text-right text-md-center"
-          role="navigation"
-        >
-          <div class="container">
-            <ul class="site-menu js-clone-nav d-none d-md-block">
-              <li><a href="/index.html">Home</a></li>
-              <li><a href="/about.html">About</a></li>
-              <li><a href="/store.html">Store</a></li>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      {% for c in categories %}
-                      <a href="{% url "boilerplate:categories" %}" class="dropdown-item">{{ c.name }}</a>
-                      {% endfor %}
-                  </div>
-              <li><a href="#">New Arrivals</a></li>
-              <li><a href="/contact.html">Contact</a></li>
-            </ul>
-          </div>
-        </nav>
-      </header>
+{% block content %}
 
     <div class="bg-light py-3">
       <div class="container">
@@ -129,7 +21,7 @@
             <p>{{ product.description }}</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt facere, natus soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga voluptas, distinctio, aperiam, ratione dolore.</p>
             <p class="mb-4">Ex numquam veritatis debitis minima quo error quam eos dolorum quidem perferendis. Quos repellat dignissimos minus, eveniet nam voluptatibus molestias omnis reiciendis perspiciatis illum hic magni iste, velit aperiam quis.</p>
-            <p><strong class="text-primary h4">Rs.{{ item.price|floatformat:"2" }}</strong></p>
+            <p><strong class="text-primary h4">Rs.{{ product.price|floatformat:"2" }}</strong></p>
             <div class="mb-1 d-flex">
               <label for="option-sm" class="d-flex mr-3 mb-3">
                 <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
@@ -156,7 +48,7 @@
             </div>
 
             </div>
-            <p><a href="/cart.html" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+            <p><a href="#" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
 
           </div>
         </div>
@@ -193,90 +85,4 @@
       </div>
     </div>
 
-    <footer class="site-footer border-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <div class="row">
-              <div class="col-md-12">
-                <h3 class="footer-heading mb-4">Navigations</h3>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <ul class="list-unstyled">
-                  <li><a href="#">Sell online</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Shopping cart</a></li>
-                  <li><a href="#">Store builder</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <ul class="list-unstyled">
-                  <li><a href="#">Mobile commerce</a></li>
-                  <li><a href="#">Dropshipping</a></li>
-                  <li><a href="#">Website development</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <ul class="list-unstyled">
-                  <li><a href="#">Point of sale</a></li>
-                  <li><a href="#">Hardware</a></li>
-                  <li><a href="#">Software</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-            <h3 class="footer-heading mb-4">Newsletter</h3>
-            <div class="block-7">
-              <form action="#" method="post">
-                <label for="email_subscribe" class="footer-heading"
-                  >Subscribe</label
-                >
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control py-4"
-                    id="email_subscribe"
-                    placeholder="Email"
-                  />
-                  <input
-                    type="submit"
-                    class="btn btn-sm btn-primary"
-                    value="Send"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="block-5 mb-5">
-              <h3 class="footer-heading mb-4">Contact Info</h3>
-              <ul class="list-unstyled">
-                <li class="address">
-                  203 Fake St. Mountain View, San Francisco, California, USA
-                </li>
-                <li class="phone">
-                  <a href="tel://23923929210">+2 392 3929 210</a>
-                </li>
-                <li class="email">emailaddress@domain.com</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        
-        </div>
-      </div>
-    </footer>
-  
-
-  <script src="static/js/jquery-3.3.1.min.js"></script>
-  <script src="static/js/jquery-ui.js"></script>
-  <script src="static/js/popper.min.js"></script>
-  <script src="static/js/bootstrap.min.js"></script>
-  <script src="static/js/owl.carousel.min.js"></script>
-  <script src="static/js/jquery.magnific-popup.min.js"></script>
-  <script src="static/js/aos.js"></script>
-
-  <script src="static/js/main.js"></script>
-</body>
-</html>
+    {% endblock %}
