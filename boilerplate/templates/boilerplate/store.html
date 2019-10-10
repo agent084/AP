@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+{% load bootstrap4 %}
   <head>
     <title>The Store</title>
     <meta charset="utf-8" />
@@ -54,8 +56,16 @@
               <div class="col-6 col-md-4 order-3 order-md-3 text-right">
                 <div class="site-top-icons">
                   <ul>
-                    <li>
-                      <a href="#"><span class="icon icon-person"></span></a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon icon-person"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if user.is_authenticated %}
+                                <a class="dropdown-item" href="{% url "boilerplate:signout" %}">Sign Out</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url "boilerplate:signin" %}">Sign In</a>
+                                <a class="dropdown-item" href="{% url "boilerplate:signup" %}">Signup</a>
+                            {% endif %}
+                        </div>
                     </li>
                     <li>
                       <a href="#"><span class="icon icon-heart-o"></span></a>
@@ -85,8 +95,14 @@
             <ul class="site-menu js-clone-nav d-none d-md-block">
               <li><a href="/index.html">Home</a></li>
               <li><a href="/about.html">About</a></li>
-              <li><a href="/shop.html">Shop</a></li>
-              <li><a href="#">Catalogue</a></li>
+              <li><a href="/store.html">Store</a></li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      {% for c in categories %}
+                      <a href="{% url "boilerplate:categories" %}" class="dropdown-item">{{ c.name }}</a>
+                      {% endfor %}
+                  </div>
               <li><a href="#">New Arrivals</a></li>
               <li><a href="/contact.html">Contact</a></li>
             </ul>
@@ -260,18 +276,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="/shop-single.html"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="/shop-single.html">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
+              
 
               <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
                 <div class="block-4 text-center border">
@@ -286,6 +291,29 @@
                 </div>
               </div>
 
+              {% for item in products %}
+              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                  <div class="block-4 text-center border">
+                <div class="card-body">
+                    <figure class="block-4-image">
+                        <a href="{% url "boilerplate:shop-single" item.slug %}"><img src="static/images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                      </figure>
+                      <div class="block-4-text p-4">
+                  
+                    <a href="{% url "boilerplate:shop-single" item.slug %}">{{ item.name|title }}</a>
+                    <div class="block-4-text p-4">
+                        <h3><a href="{% url "boilerplate:shop-single" item.slug %}">Polo Shirt</a></h3>
+                        <p class="mb-0">Finding perfect products</p>
+                        <p class="text-primary font-weight-bold">Rs.{{ item.price|floatformat:"2" }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+    
+                {% endfor %}
+
+
+              
 
             </div>
             <div class="row" data-aos="fade-up">
@@ -309,9 +337,9 @@
             <div class="border p-4 rounded mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
               <ul class="list-unstyled mb-0">
-                <li class="mb-1"><a href="#" class="d-flex"><span>Men</span> <span class="text-black ml-auto">(2,220)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Women</span> <span class="text-black ml-auto">(2,550)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Children</span> <span class="text-black ml-auto">(2,124)</span></a></li>
+                {% for c in categories %}
+                <li class="mb-1"><a href="#" class="d-flex"><span>{{ c.name }}</span> <span class="text-black ml-auto">Products</span></a></li>
+                {% endfor %}
               </ul>
             </div>
 

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+{% load bootstrap4 %}
   <head>
-    <title>Checkout</title>
+    <title>The Store</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -54,8 +56,16 @@
               <div class="col-6 col-md-4 order-3 order-md-3 text-right">
                 <div class="site-top-icons">
                   <ul>
-                    <li>
-                      <a href="/account.html"><span class="icon icon-person"></span></a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="icon icon-person"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if user.is_authenticated %}
+                                <a class="dropdown-item" href="{% url "boilerplate:signout" %}">Sign Out</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url "boilerplate:signin" %}">Sign In</a>
+                                <a class="dropdown-item" href="{% url "boilerplate:signup" %}">Signup</a>
+                            {% endif %}
+                        </div>
                     </li>
                     <li>
                       <a href="#"><span class="icon icon-heart-o"></span></a>
@@ -85,15 +95,20 @@
             <ul class="site-menu js-clone-nav d-none d-md-block">
               <li><a href="/index.html">Home</a></li>
               <li><a href="/about.html">About</a></li>
-              <li><a href="/shop.html">Shop</a></li>
-              <li><a href="#">Catalogue</a></li>
+              <li><a href="/store.html">Store</a></li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      {% for c in categories %}
+                      <a href="{% url "boilerplate:categories" %}" class="dropdown-item">{{ c.name }}</a>
+                      {% endfor %}
+                  </div>
               <li><a href="#">New Arrivals</a></li>
               <li><a href="/contact.html">Contact</a></li>
             </ul>
           </div>
         </nav>
       </header>
-
 
     <div class="bg-light py-3">
       <div class="container">
