@@ -75,7 +75,7 @@ def signup(request):
     else:
         form = SignupForm()
     context = {"form": form}
-    return render(request, "bolierplate/signup.html", context)
+    return render(request, "boilerplate/signup.html", context)
 
 
 def signin(request):
